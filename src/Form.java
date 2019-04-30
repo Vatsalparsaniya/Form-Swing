@@ -53,7 +53,7 @@ public class Form extends JFrame {
         jpanel1.add(cb3);
         jpanel1.add(cb4);
 
-        slabel = new JLabel("Enter Your Data :");
+        slabel = new JLabel("Select Item :");
         radioButton1 = new JRadioButton();
         radioButton1.setText("MALE");
         radioButton1.setBackground(Color.cyan);
