@@ -150,17 +150,17 @@ public class Form extends JFrame implements ActionListener {
         nextJlabel[0] = new JLabel();
         nextJlabel[0].setText("Name :  " + name);
         jPanel4.add(Box.createRigidArea(new Dimension(0, 30)));
-
+        jPanel4.
         jPanel4.add(nextJlabel[0]);
         jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
         nextInside1 = new JPanel();
-        nextInside1.setLayout(new BoxLayout(nextInside1,0));
+        nextInside1.setLayout(new FlowLayout(FlowLayout.CENTER));
         nextJlabel[1] = new JLabel();
         nextJlabel[1].setText("Fruits :");
         //nextInside1.add(Box.createRigidArea(new Dimension(100, 0)));
         nextInside1.setBackground(Color.cyan);
         nextInside1.add(nextJlabel[1]);
-        nextInside1.add(Box.createRigidArea(new Dimension(10, 0)));
+        //nextInside1.setMaximumSize(new Dimension(200,300));
         nextInside2 = new JPanel();
         nextInside2.setBackground(Color.cyan);
         nextInside2.setLayout(new BoxLayout(nextInside2,1));
@@ -173,6 +173,7 @@ public class Form extends JFrame implements ActionListener {
             nextInside2.add(nextJlabel[p++]);
             i++;
         }
+        nextInside1.setMaximumSize(new Dimension(500,70));
         nextInside1.add(nextInside2);
         jPanel4.add(nextInside1);
 
