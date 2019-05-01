@@ -1,25 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 
-public class Form extends JFrame {
+public class Form extends JFrame implements ActionListener {
     private JFrame mainFrame;
     private JLabel NameLabel,fLabel,slabel;
     private JTextField nameField;
 
-    JCheckBox cb1,cb2,cb3,cb4;
+    JCheckBox[] cb = new JCheckBox[4];
     JPanel jpanel1 = new JPanel();
     JPanel jPanel2 = new JPanel();
     JRadioButton radioButton1;
     JRadioButton radioButton2;
     JComboBox jComboBox;
     JPanel jpanel = new JPanel();
-
-
     JPanel jpanel3 = new JPanel();
     JList jlist ;
     JButton button1,button2;
     JPanel mainPanel;
+    JFrame nextFrame;
+    JTextArea jTextArea;
+    JPanel jPanel4;
+    JLabel[] nextJlabel = new JLabel[15];
+    JPanel nextInside1;
+    JPanel nextInside2;
+    //List<JLabel> nextJlabel;
+
 
     Form(){
 
@@ -37,21 +46,22 @@ public class Form extends JFrame {
         jpanel.setMaximumSize(new Dimension(400, 20));
         fLabel = new JLabel();
         fLabel.setText("Select items :");
-        cb1 = new JCheckBox("APPLE");
-        cb2 = new JCheckBox("GRAPES");
-        cb3 = new JCheckBox("CHERRY");
-        cb4 = new JCheckBox("WATER MELON");
+
+        cb[0] = new JCheckBox("APPLE");
+        cb[1] = new JCheckBox("GRAPES");
+        cb[2] = new JCheckBox("CHERRY");
+        cb[3] = new JCheckBox("WATER MELON");
         jpanel1.setLayout(new BoxLayout(jpanel1,1));
         jpanel1.setBackground(Color.cyan);
         jpanel1.add(fLabel);
-        cb1.setBackground(Color.cyan);
-        cb2.setBackground(Color.cyan);
-        cb3.setBackground(Color.cyan);
-        cb4.setBackground(Color.cyan);
-        jpanel1.add(cb1);
-        jpanel1.add(cb2);
-        jpanel1.add(cb3);
-        jpanel1.add(cb4);
+        cb[0].setBackground(Color.cyan);
+        cb[1].setBackground(Color.cyan);
+        cb[2].setBackground(Color.cyan);
+        cb[3].setBackground(Color.cyan);
+        jpanel1.add(cb[0]);
+        jpanel1.add(cb[1]);
+        jpanel1.add(cb[2]);
+        jpanel1.add(cb[3]);
 
         slabel = new JLabel("Select Item :");
         radioButton1 = new JRadioButton();
@@ -60,6 +70,8 @@ public class Form extends JFrame {
         radioButton2 = new JRadioButton();
         radioButton2.setText("FEMALE");
         radioButton2.setBackground(Color.cyan);
+        radioButton1.addActionListener(this);
+        radioButton2.addActionListener(this);
         jPanel2.add(slabel);
         jPanel2.setBackground(Color.cyan);
         jPanel2.setLayout(new BoxLayout(jPanel2,1));
@@ -76,7 +88,9 @@ public class Form extends JFrame {
         jlist.setBackground(Color.cyan);
 
         button1 = new JButton("Show");
+        button1.addActionListener(this);
         button2 = new JButton("EXIT");
+        button2.addActionListener(this);
         jpanel3.add(button1);
         jpanel3.add(Box.createRigidArea(new Dimension(10, 0)));
         jpanel3.add(button2);
@@ -106,6 +120,104 @@ public class Form extends JFrame {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
     }
+
+    public void show_button(){
+        String name = nameField.getText();
+        String ckList = new String();
+
+        int n = cb.length;
+        for (int i = 0 ; i < n ;i++){
+            if(cb[i].isSelected()){
+                ckList = ckList.concat(","+cb[i].getText());
+            }
+        }
+        var ckl = ckList.split(",");
+        int len = ckl.length;
+        String radioText;
+        if(radioButton1.isSelected()){
+            radioText = radioButton1.getText();
+        }else{
+            radioText = radioButton2.getText();
+        }
+        String jcombox = jComboBox.getSelectedItem().toString();
+        String jlist_text = jlist.getSelectedValue().toString();
+
+        nextFrame = new JFrame();
+        jTextArea = new JTextArea();
+        jPanel4 = new JPanel();
+
+        jPanel4.setLayout(new BoxLayout(jPanel4,BoxLayout.Y_AXIS));
+        nextJlabel[0] = new JLabel();
+        nextJlabel[0].setText("Name :  " + name);
+        jPanel4.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        jPanel4.add(nextJlabel[0]);
+        jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
+        nextInside1 = new JPanel();
+        nextInside1.setLayout(new BoxLayout(nextInside1,0));
+        nextJlabel[1] = new JLabel();
+        nextJlabel[1].setText("Fruits :");
+        //nextInside1.add(Box.createRigidArea(new Dimension(100, 0)));
+        nextInside1.setBackground(Color.cyan);
+        nextInside1.add(nextJlabel[1]);
+        nextInside1.add(Box.createRigidArea(new Dimension(10, 0)));
+        nextInside2 = new JPanel();
+        nextInside2.setBackground(Color.cyan);
+        nextInside2.setLayout(new BoxLayout(nextInside2,1));
+        int i = 0;
+        int p = 2;
+        int l = ckl.length;
+        while (l > i) {
+            nextJlabel[p] = new JLabel();
+            nextJlabel[p].setText(ckl[i]);
+            nextInside2.add(nextJlabel[p++]);
+            i++;
+        }
+        nextInside1.add(nextInside2);
+        jPanel4.add(nextInside1);
+
+        nextJlabel[p] = new JLabel();
+        nextJlabel[p].setText("Gender :  " + radioText);
+        jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
+        jPanel4.add(nextJlabel[p++]);
+
+        nextJlabel[p] = new JLabel();
+        nextJlabel[p].setText("City :  " + jcombox);
+        jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
+        jPanel4.add(nextJlabel[p++]);
+
+        nextJlabel[p] = new JLabel();
+        nextJlabel[p].setText("Collage :  " + jlist_text);
+        jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
+        jPanel4.add(nextJlabel[p++]);
+
+        mainFrame.getContentPane().removeAll();
+        jPanel4.setBackground(Color.cyan);
+        mainFrame.add(jPanel4);
+        mainFrame.setVisible(true);
+    }
+
+    public  void actionPerformed(ActionEvent e){
+        if(e.getSource() == button1){
+            show_button();
+
+        }
+        if(e.getSource() == button2){
+            System.exit(0);
+        }
+        if(e.getSource() == radioButton1){
+            if(radioButton2.isSelected()){
+                radioButton2.setSelected(false);
+            }
+        }
+        if(e.getSource() == radioButton2){
+            if(radioButton1.isSelected()){
+                radioButton1.setSelected(false);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
          new Form();
     }
