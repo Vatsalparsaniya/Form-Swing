@@ -150,7 +150,7 @@ public class Form extends JFrame implements ActionListener {
         nextJlabel[0] = new JLabel();
         nextJlabel[0].setText("Name :  " + name);
         jPanel4.add(Box.createRigidArea(new Dimension(0, 30)));
-        jPanel4.
+
         jPanel4.add(nextJlabel[0]);
         jPanel4.add(Box.createRigidArea(new Dimension(0, 10)));
         nextInside1 = new JPanel();
